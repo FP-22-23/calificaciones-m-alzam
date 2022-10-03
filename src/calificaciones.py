@@ -8,3 +8,43 @@ def solicitar_datos() -> tuple[int]:
     respuestas = int(input("Total de respuestas: "))
 
     return errores, aciertos, respuestas
+
+
+def calcula_nota_cuatrimestre(cuestionarios: tuple[float], parcial: float, proyecto: float) -> float:
+    if proyecto < 5:
+        return 3.0
+    return 0.1 * sum(cuestionarios) / len(cuestionarios) + 0.6 * parcial + 0.1 * proyecto
+
+
+def calcula_nota_evaluacion_continua(cuestionarios: tuple[float], parciales: tuple[float], proyectos: tuple[float]):
+    cuatrimestre_1 = calcula_nota_cuatrimestre(cuestionarios[:3], parciales[0], proyectos[0])
+    cuatrimestre_2 = calcula_nota_cuatrimestre(cuestionarios[3:], parciales[1], proyectos[1])
+
+    if cuatrimestre_1 < 4 or cuatrimestre_2 < 4:
+        return 4
+
+    return (cuatrimestre_2 + cuatrimestre_2) / 2
+
+
+def solicitar_cuestionarios() -> list[float]:
+    notas = []
+    for i in range(6):
+        notas.append(float(input(f"Nota del cuestionario {i+1}: ")))
+
+    return notas
+
+
+def solicitar_parciales() -> list[float]:
+    notas = []
+    for i in range(2):
+        notas.append(float(input(f"Nota del parcial {i+1}: ")))
+
+    return notas
+
+
+def solicitar_proyectos() -> list[float]:
+    notas = []
+    for i in range(2):
+        notas.append(float(input(f"Nota del proyecto {i+1}: ")))
+
+    return notas
